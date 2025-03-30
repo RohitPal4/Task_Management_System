@@ -12,7 +12,7 @@ require('./conn/conn.js');
 
 app.use(cors());
 app.use(cors({
-    origin: ["https://task-management-system-rohit.vercel.app"], 
+    origin: ["https://task-management-7lpfbwo82-rohit-pals-projects.vercel.app"], 
     credentials: true
   }));
 app.use(express.json());
