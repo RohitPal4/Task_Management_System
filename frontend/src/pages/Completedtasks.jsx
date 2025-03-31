@@ -17,7 +17,7 @@ const Completedtasks = () => {
 
       if (token && id) {
         const response = await axios.get(
-          `http://localhost:1000/api/v2/get-completed-tasks`,
+          `https://task-management-system-qzbh.onrender.com/api/v2/get-completed-tasks`,
           {
             headers: {
               id: id,
