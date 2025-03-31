@@ -10,6 +10,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from './store/auth';
+import { statsActions } from './store/stats';
 
 const App = () => {
   const navigate = useNavigate();
@@ -19,16 +20,20 @@ const App = () => {
   useEffect(() => {
     if(localStorage.getItem('token') && localStorage.getItem('id')) {
       dispatch(authActions.login());
+      dispatch(statsActions.setStats({
+        total: 0,
+        completed: 0,
+        incomplete: 0
+      }));
     }else {
       dispatch(authActions.logout());
+      dispatch(statsActions.resetStats())
     }
     if(!isLoggedIn) {
       navigate("/login");
     }
   
-    
-  
-  }, []);
+  },[]);
   
   
   return (

@@ -8,9 +8,11 @@ const Alltasks = () => {
   const [inputDiv, setInputDiv] = useState("hidden");
   const [tasks, setTasks] = useState([]);
   const [editingTask, setEditingTask] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const fetchTasks = async () => {
     try {
+      setLoading(true);
       const token = localStorage.getItem("token");
       const id = localStorage.getItem("id");
       if (token && id) {
@@ -26,12 +28,22 @@ const Alltasks = () => {
       }
     } catch (error) {
       console.log(error);
+    }finally{
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchTasks();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-[80vh]">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
 
   return (
     <>

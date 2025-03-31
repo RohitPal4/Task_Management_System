@@ -42,8 +42,8 @@ const Signup = () => {
   }
 
   return (
-    <div className="h-[98vh] flex items-center justify-center">
-      <div className="p-4 w-2/6 rounded bg-gray-800">
+    <div className="h-screen md:h-[98vh] flex items-center justify-center px-4"c>
+      <div className="p-4 w-full md:w-2/3 lg:w-1/2 xl:w-2/6 rounded bg-gray-800">
         <div className="text-xl font-semibold">Signup</div>
         <input
           type="username"

@@ -5,17 +5,34 @@ import { MdDelete } from "react-icons/md";
 import { IoAddCircleSharp } from "react-icons/io5";
 import { FaHeart } from "react-icons/fa";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { statsActions } from "../../store/stats";
 
 const Cards = ({ home, setInputDiv, data, setEditingTask, refreshTasks }) => {
   const [localdata, setLocalData] = useState([]);
+  const dispatch  = useDispatch();
   
   useEffect(() => {
     setLocalData(data);
+
+    updateStats(data);
   }, [data]);
 
   const headers = {
     id: localStorage.getItem("id"),
     authorization: `Bearer ${localStorage.getItem("token")}`,
+  };
+
+  const updateStats = (tasks) => {
+    const total = tasks.length;
+    const completed = tasks.filter(task => task.complete).length;
+    const incomplete = total - completed;
+    
+    dispatch(statsActions.setStats({
+      total,
+      completed,
+      incomplete
+    }));
   };
 
   const handleClick = async (id) => {
@@ -27,7 +44,8 @@ const Cards = ({ home, setInputDiv, data, setEditingTask, refreshTasks }) => {
       );
 
       if (response.status === 200) {
-        refreshTasks();
+        const updatedTasks = await refreshTasks();
+        updateStats(updatedTasks);
       }
     } catch (error) {
       console.error("Failed to update task:", error);
@@ -43,7 +61,8 @@ const Cards = ({ home, setInputDiv, data, setEditingTask, refreshTasks }) => {
       );
 
       if (response.status === 200) {
-        refreshTasks();
+        const updatedTasks = await refreshTasks();
+        updateStats(updatedTasks);
         if (home === "false") {
           setLocalData(prev => prev.filter(task => task._id !== id));
         }
@@ -61,7 +80,8 @@ const Cards = ({ home, setInputDiv, data, setEditingTask, refreshTasks }) => {
       );
 
       if (response.status === 200) {
-        refreshTasks();
+        const updatedTasks = await refreshTasks();
+        updateStats(updatedTasks);
       }
     } catch (error) {
       console.error("Failed to delete task:", error);

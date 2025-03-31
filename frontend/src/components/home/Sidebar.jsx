@@ -5,20 +5,16 @@ import { FaCheckDouble } from "react-icons/fa";
 import { TbNotebookOff } from "react-icons/tb";
 // import { GiHamburgerMenu } from "react-icons/gi";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/auth";
 import axios from "axios";
+import { statsActions } from "../../store/stats";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [stats, setStats] = useState({
-    total: 0,
-    completed: 0,
-    incomplete: 0,
-  });
+  const stats = useSelector((state) => state.stats);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
   const data = [
     {
       title: "All tasks",
@@ -73,19 +69,17 @@ const Sidebar = () => {
           console.log(response.data);
           setData(response.data.data);
           const tasks = response.data.data.tasks || [];
-          setStats({
+          dispatch(statsActions.setStats({
             total: tasks.length,
-            completed: tasks.filter((task) => task.complete).length,
-            incomplete: tasks.filter((task) => !task.complete).length,
-          });
+            completed: tasks.filter(t => t.complete).length,
+            incomplete: tasks.filter(t => !t.complete).length
+          }));
         }
       } catch (error) {
         console.log(error);
       }
     };
     fetch();
-    const interval = setInterval(fetch, 5000);
-    return () => clearInterval(interval);
   }, []);
 
   return (
