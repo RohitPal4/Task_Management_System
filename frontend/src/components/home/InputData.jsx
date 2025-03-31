@@ -39,7 +39,7 @@ const InputData = ({ inputDiv, setInputDiv, refreshTasks, editingTask, setEditin
       if (editingTask) {
         // Update existing task
         await axios.put(
-          `http://localhost:1000/api/v2/update-task/${editingTask._id}`,
+          `https://task-management-system-qzbh.onrender.com/api/v2/update-task/${editingTask._id}`,
           {
             title: data.title,
             desc: data.desc,
@@ -49,7 +49,7 @@ const InputData = ({ inputDiv, setInputDiv, refreshTasks, editingTask, setEditin
       } else {
         // Create new task
         await axios.post(
-          "http://localhost:1000/api/v2/create-task",
+          "https://task-management-system-qzbh.onrender.com/api/v2/create-task",
           {
             title: data.title,
             desc: data.desc,
