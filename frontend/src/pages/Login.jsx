@@ -30,7 +30,7 @@ const Login = () => {
         alert("Please fill all the fields");
         return;
       }
-      const response  = await axios.post("http://localhost:1000/api/v1/login", data);
+      const response  = await axios.post("https://task-management-system-qzbh.onrender.com/api/v1/login", data);
       setData({
         username: "",
         password: "",
