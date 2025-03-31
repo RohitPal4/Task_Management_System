@@ -21,7 +21,7 @@ const Cards = ({ home, setInputDiv, data, setEditingTask, refreshTasks }) => {
   const handleClick = async (id) => {
     try {
       const response = await axios.put(
-        `http://localhost:1000/api/v2/update-complete-task/${id}`,
+        `https://task-management-system-qzbh.onrender.com/api/v2/update-complete-task/${id}`,
         {},
         { headers }
       );
@@ -37,7 +37,7 @@ const Cards = ({ home, setInputDiv, data, setEditingTask, refreshTasks }) => {
   const handleImpTask = async (id) => {
     try {
       const response = await axios.put(
-        `http://localhost:1000/api/v2/update-imp-Task/${id}`,
+        `https://task-management-system-qzbh.onrender.com/api/v2/update-imp-Task/${id}`,
         {},
         { headers }
       );
@@ -56,7 +56,7 @@ const Cards = ({ home, setInputDiv, data, setEditingTask, refreshTasks }) => {
   const handleDeleteTask = async (id) => {
     try {
       const response = await axios.delete(
-        `http://localhost:1000/api/v2/delete-task/${id}`,
+        `https://task-management-system-qzbh.onrender.com/api/v2/delete-task/${id}`,
         { headers }
       );
 
